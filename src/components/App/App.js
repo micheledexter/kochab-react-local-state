@@ -20,8 +20,8 @@ class App extends Component {
     // this.state.user = event.target.value;
     this.setState({
       user: {
+        ...this.state.user,
         name: event.target.value,
-        place: this.state.user.place,
       }
     });
   }
@@ -31,7 +31,7 @@ class App extends Component {
 
     this.setState({
       user: {
-        name: this.state.user.name,
+        ...this.state.user,
         place: event.target.value,
       }
     });
@@ -39,7 +39,7 @@ class App extends Component {
 
   handleClick = (event) => {
     console.log(this.state.user);
-  }
+  };
 
   render() {
     return (
