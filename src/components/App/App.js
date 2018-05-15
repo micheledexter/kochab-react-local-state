@@ -5,8 +5,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: '',
-      place: '',
+      user: {
+        name: '',
+        place: '',
+      }
     };
 
     // this.handleChange = this.handleChange.bind(this);
@@ -16,24 +18,34 @@ class App extends Component {
     console.log('event.target.value:', event.target.value);
 
     // this.state.user = event.target.value;
-    this.setState({user: event.target.value});
+    this.setState({
+      user: {
+        name: event.target.value,
+        place: this.state.user.place,
+      }
+    });
   }
 
   handlePlaceChange = (event) => {
     console.log('event.target.value:', event.target.value);
 
-    this.setState({place: event.target.value});
+    this.setState({
+      user: {
+        name: this.state.user.name,
+        place: event.target.value,
+      }
+    });
   }
 
   handleClick = (event) => {
-    console.log (this.state);
+    console.log(this.state.user);
   }
 
   render() {
     return (
       <div className="App">
         {/* The current user is {this.state.user} */}
-        {this.state.user} is from {this.state.place}<br />
+        {this.state.user.name} is from {this.state.user.place}<br />
         User: <input onChange={this.handleUserChange} placeholder="Username" />
         Place: <input onChange={this.handlePlaceChange} placeholder="Place" />
         <button onClick={this.handleClick}>Press me... i dare you...</button>
