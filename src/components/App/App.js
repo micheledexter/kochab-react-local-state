@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 
+const emptyUser = { name: '', city: '', zip: '', }
+
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      user: {
-        name: '',
-        city: '',
-        zip: '',
-      }
+      userList: [
+        { name: 'Shely', city: 'Minneapolis', zip: '55422' }
+      ],
+      user: emptyUser,
     };
-
-    // this.handleChange = this.handleChange.bind(this);
   }
 
   handleChangeFor = propertyName => event => {
@@ -24,28 +22,31 @@ class App extends Component {
     });
   }
 
-  handleClick = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     console.log(this.state.user);
     this.setState({
-      user: {
-        name: '',
-        city: '',
-        zip: '',
-      }
+      userList: [...this.state.userList, this.state.user],
+      user: emptyUser,
     });
   }
 
   render() {
+    const peopleList = this.state.userList.map((user, i) => <li key={i}>{user.name} is from {user.city} in zip code {user.zip}</li>);
     return (
       <div className="App">
-        {/* The current user is {this.state.user} */}
         <p>
           {this.state.user.name} is from {this.state.user.city} in zip code {this.state.user.zip}
         </p>
-        User: <input value={this.state.user.name} onChange={this.handleChangeFor('name')} placeholder="Name" />
-        City: <input value={this.state.user.city} onChange={this.handleChangeFor('city')} placeholder="City" />
-        Zip Code: <input value={this.state.user.zip} onChange={this.handleChangeFor('zip')} placeholder="Zip Code" />
-        <button onClick={this.handleClick}>Log the state!</button>
+        <form onSubmit={this.handleSubmit}>
+          <input value={this.state.user.name} onChange={this.handleChangeFor('name')} placeholder="Name" /><br />
+          <input value={this.state.user.city} onChange={this.handleChangeFor('city')} placeholder="City" /><br />
+          <input value={this.state.user.zip} onChange={this.handleChangeFor('zip')} placeholder="Zip Code" /><br />
+          <input type="submit" value="Click me to submit form!" />
+          <ul>
+            {peopleList}
+          </ul>
+        </form>
       </div>
     );
   }
