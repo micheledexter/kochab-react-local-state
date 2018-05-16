@@ -7,48 +7,45 @@ class App extends Component {
     this.state = {
       user: {
         name: '',
-        place: '',
+        city: '',
+        zip: '',
       }
     };
 
     // this.handleChange = this.handleChange.bind(this);
   }
 
-  handleUserChange = (event) => {
-    console.log('event.target.value:', event.target.value);
-
-    // this.state.user = event.target.value;
+  handleChangeFor = propertyName => event => {
     this.setState({
       user: {
         ...this.state.user,
-        name: event.target.value,
+        [propertyName]: event.target.value,
       }
     });
   }
 
-  handlePlaceChange = (event) => {
-    console.log('event.target.value:', event.target.value);
-
-    this.setState({
-      user: {
-        ...this.state.user,
-        place: event.target.value,
-      }
-    });
-  }
-
-  handleClick = (event) => {
+  handleClick = () => {
     console.log(this.state.user);
-  };
+    this.setState({
+      user: {
+        name: '',
+        city: '',
+        zip: '',
+      }
+    });
+  }
 
   render() {
     return (
       <div className="App">
         {/* The current user is {this.state.user} */}
-        {this.state.user.name} is from {this.state.user.place}<br />
-        User: <input onChange={this.handleUserChange} placeholder="Username" />
-        Place: <input onChange={this.handlePlaceChange} placeholder="Place" />
-        <button onClick={this.handleClick}>Press me... i dare you...</button>
+        <p>
+          {this.state.user.name} is from {this.state.user.city} in zip code {this.state.user.zip}
+        </p>
+        User: <input value={this.state.user.name} onChange={this.handleChangeFor('name')} placeholder="Name" />
+        City: <input value={this.state.user.city} onChange={this.handleChangeFor('city')} placeholder="City" />
+        Zip Code: <input value={this.state.user.zip} onChange={this.handleChangeFor('zip')} placeholder="Zip Code" />
+        <button onClick={this.handleClick}>Log the state!</button>
       </div>
     );
   }
