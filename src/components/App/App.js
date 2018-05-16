@@ -32,7 +32,13 @@ class App extends Component {
   }
 
   render() {
-    const peopleList = this.state.userList.map((user, i) => <li key={i}>{user.name} is from {user.city} in zip code {user.zip}</li>);
+    const peopleList = this.state.userList.map((user, i) => {
+      return (
+        <div key={i} style={{display:"inline-block", textAlign:"center", border:"solid", margin:"5px"}}>
+          <h1>{user.name}</h1> is from <h2>{user.city}</h2> in zip code <h3>{user.zip}</h3>
+        </div>
+      )
+    });
     return (
       <div className="App">
         <p>
